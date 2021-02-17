@@ -22,7 +22,7 @@ class MeetingController extends Controller
     public function post_meeting(Request $request) {
         $meeting = new Meeting;
         $meeting->name = $request->input('name');
-        $meeting->meetingID = str_replace(' ','_',$request->input('name')); 
+        $meeting->meetingID = str_replace(' ','_',$request->input('name')).rand(0,999999); 
         $meeting->attendeePW = 'a'.rand(10000, 99999);
         $meeting->moderatorPW = 'm'.rand(10000, 99999);
         $meeting->user_id = auth()->user()->id;
@@ -56,6 +56,7 @@ class MeetingController extends Controller
         if ($data->running == "false") {
             // Create meeting jika belum jalan
             $param_create = 'allowStartStopRecording=true'
+                .'&record=true'
                 .'&meetingID='.$meeting->meetingID
                 .'&recordID='.$meeting->meetingID
                 .'&name='.urlencode($meeting->name)

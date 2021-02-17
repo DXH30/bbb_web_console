@@ -32,7 +32,7 @@ class PageController extends Controller
 
     public function dashboard(Request $request) {
         if (!auth()->check()) {
-            return redirect()->to(route('page_login'));
+            return redirect()->to(route('login'));
         }
         $obj['title'] = 'Dashboard';
         return view('dashboard', $obj);
@@ -46,12 +46,16 @@ class PageController extends Controller
 
     public function meeting(Request $request) {
         $obj['title'] = 'Meeting Management';
-        if (auth()->user()->type == 'admin') {
-            $obj['meetings'] = Meeting::get();
+        if (auth()->check()) {
+            if (auth()->user()->type == 'admin') {
+                $obj['meetings'] = Meeting::get();
+            } else {
+                $obj['meetings'] = Meeting::where('user_id', auth()->user()->id)->get();
+            }
+            return view('meeting', $obj);
         } else {
-            $obj['meetings'] = Meeting::where('user_id', auth()->user()->id)->get();
+            return redirect()->to(route('login'));
         }
-        return view('meeting', $obj);
     }
 
     public function meeting_public(Request $request) {

@@ -34,7 +34,7 @@
                         <li><a class="nav-link page-scroll" href="#page-top">Home</a></li>
                         <li><a class="nav-link page-scroll" href="#contact">Contact</a></li>
                         @if(!auth()->check())
-                        <li><a class="nav-link page-scroll" href="{{route('page_login')}}">Login</a></li>
+                        <li><a class="nav-link page-scroll" href="{{route('login')}}">Login</a></li>
                         <li><a class="nav-link page-scroll" href="{{route('page_register')}}">Register</a></li>
                     @else
                         <li><a class="nav-link page-scroll" href="{{route('page_dashboard')}}">Dashboard</a></li>

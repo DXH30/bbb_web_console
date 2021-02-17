@@ -17,7 +17,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
         if ($user->save()) {
-            return redirect()->to(route('page_login'));
+            return redirect()->to(route('login'));
         } else {
             return redirect()->back()->withErrors(['gagal registrasi']);
         }
@@ -40,7 +40,7 @@ class UserController extends Controller
 
     public function logout(Request $request) {
         Auth::logout();
-        return redirect()->to(route('page_login'));
+        return redirect()->to(route('login'));
     }
 
     public function verifikasi(Request $request) {
